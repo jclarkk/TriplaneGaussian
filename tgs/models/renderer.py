@@ -279,7 +279,7 @@ class GS3DRenderer(BaseModule):
 
         # Rasterize visible Gaussians to image, obtain their radii (on screen). 
         with torch.autocast(device_type=self.device.type, dtype=torch.float32):
-            rendered_image, radii = rasterizer(
+            rendered_image, radii, rendered_depth, rendered_alpha = rasterizer(
                 means3D = means3D,
                 means2D = means2D,
                 shs = shs,
@@ -313,7 +313,7 @@ class GS3DRenderer(BaseModule):
             rasterizer = GaussianRasterizer(raster_settings=raster_settings)
             
             with torch.autocast(device_type=self.device.type, dtype=torch.float32):
-                rendered_mask, radii = rasterizer(
+                rendered_mask, radii, rendered_depth, rendered_alpha = rasterizer(
                     means3D = means3D,
                     means2D = means2D,
                     # shs = ,
